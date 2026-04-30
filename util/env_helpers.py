@@ -122,3 +122,9 @@ def ensure_required_envs_exist(required_env_names: set[str], config_path: Path) 
 
     for env_name in missing_env_names:
         ensure_conda_env(env_definitions[env_name])
+
+def existing_env_names():
+    completed = subprocess.run(["conda", "env", "list", "--json"], capture_output=True, text=True, check=True)
+    payload = json.loads(completed.stdout)
+    env_paths = payload.get("envs", [])
+    return {Path(path).name for path in env_paths}

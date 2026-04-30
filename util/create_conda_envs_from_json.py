@@ -4,30 +4,35 @@ import json
 import subprocess
 from pathlib import Path
 
+import env_helpers
 
+# Default path to the environment configuration JSON file
 DEFAULT_CONFIG = Path(__file__).resolve().with_name("versicode_env_configs.json")
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Create conda environments from a JSON manifest.")
+def parse_args():
+    parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="Path to the environment config JSON file.")
     parser.add_argument("--only", action="append", dest="only", help="Only create the named environment. Can be passed multiple times.")
     return parser.parse_args()
 
 def run_command(command: list[str]) -> None:
+    """Execute a shell command and raise an error if it fails."""
     print("Running:", " ".join(command))
     subprocess.run(command, check=True)
 
-def existing_env_names() -> set[str]:
-    completed = subprocess.run(["conda", "env", "list", "--json"], capture_output=True, text=True, check=True)
-    payload = json.loads(completed.stdout)
-    env_paths = payload.get("envs", [])
-    return {Path(path).name for path in env_paths}
+def main():
+    """
+    Create or update Conda environments based on the JSON configs.
 
-def main() -> int:
+    For each env:
+    - Create it if it doesnt exist, otherwise, install/upgrade required packages
+    - Install pip packages if specified
+    - Execute any post-setup commands
+    """
     args = parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
     only = set(args.only or [])
-    existing_envs = existing_env_names()
+    existing_envs = env_helpers.existing_env_names() # Return the set of existing Conda environment names
 
     for env in config["environments"]:
         env_name = env["name"]
