@@ -41,3 +41,6 @@ def load_existing_results(path: Path):
             f"{exc.msg} at line {exc.lineno} column {exc.colno}"
         )
         return None
+    
+def iter_validation_files(root: Path) -> list[Path]:
+    return sorted(root.rglob("*.json"))
