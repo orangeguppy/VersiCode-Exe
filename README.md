@@ -27,7 +27,7 @@ As our work extends the VersiCode dataset, we retain all fields in the original 
   ]
 }
 ```
-You can run  ```python util/construct_versicode_exe_dataset.py``` to regenerate the VersiCode-Exe dataset files too.
+You can run  ```python util/construct_versicode_exe_dataset.py``` to regenerate the VersiCode-Exe dataset files too from the VersiCode benchmarkn files and execution output from previous steps.
 
 ## Usage: Verifying VersiCode-Exe Dataset Rows
 To validate the execution of each VersiCode-Exe sample on its assigned native Python environment, run ```python util/verify_dataset.py```. The validation results can be viewed in the ```code_field_validation_results``` folder. This script will also print out the number of verified samples per category as shown in Table 6 of the report.
