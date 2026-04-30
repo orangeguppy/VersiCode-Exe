@@ -79,6 +79,7 @@ def execute_code(sample: dict[str, Any], timeout: int, python_env_names: list[st
     with tempfile.TemporaryDirectory(prefix="versicode_run_") as temp_dir:
         workdir = Path(temp_dir)
         command, file_path, preparation_error = command_for_language(language, code, workdir)
+        
         if preparation_error is not None:
             return preparation_error
         if command is None:

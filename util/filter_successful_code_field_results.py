@@ -11,7 +11,6 @@ DEFAULT_OUTPUT_ROOT = (
 )
 DEFAULT_ENV_CONFIG = Path(__file__).resolve().with_name("versicode_env_configs.json")
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
