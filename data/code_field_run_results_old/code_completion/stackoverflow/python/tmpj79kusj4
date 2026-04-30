@@ -1,0 +1,74 @@
+{
+  "data": [
+    {
+      "dependency": "tensorflow",
+      "version": "==2.1.0",
+      "time": "2021-08-26",
+      "description": "The code creates a sparse tensor with negative infinity values at specified indices and then converts it to a dense tensor.",
+      "code": "import tensorflow as tf\n\n#there are same values in the tensor\nskip_ids = tf.constant([[0], [0]], dtype=tf.int64)\n\nsparse_mask = tf.SparseTensor(\n    # Put a -inf at each bad index.\n    values=[-float('inf')] * len(skip_ids),\n    indices=skip_ids,\n    # Match the shape to the vocabulary\n    dense_shape=[76])\nprint(sparse_mask)\n\nprediction_mask = tf.sparse.to_dense(sparse_mask)",
+      "masked_code": "import tensorflow as tf\n\n#there are same values in the tensor\nskip_ids = tf.constant([[0], [0]], dtype=tf.int64)\n\nsparse_mask = tf.SparseTensor(\n    # Put a -inf at each bad index.\n    values=[-float('inf')] * len(skip_ids),\n    indices=skip_ids,\n    # Match the shape to the vocabulary\n    dense_shape=[76])\nprint(sparse_mask)\n\n<line_mask>",
+      "masked_line": "prediction_mask = tf.sparse.to_dense(sparse_mask)",
+      "answer": "sparse",
+      "granularity": "block",
+      "language": "python",
+      "task": "code_completion",
+      "source": "stackoverflow",
+      "id": "stackoverflow_block_1",
+      "run_result": {
+        "status": "error",
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/tmp/versicode_run_nhjnxm63/sample.py\", line 8, in <module>\n    values=[-float('inf')] * len(skip_ids),\n  File \"/home/nicoleoo/miniconda3/envs/versicode_py37_legacy/lib/python3.7/site-packages/tensorflow_core/python/framework/ops.py\", line 741, in __len__\n    \"shape information.\".format(self.name))\nTypeError: len is not well defined for symbolic Tensors. (Const:0) Please call `x.shape` rather than `len(x)` for shape information.\n\nERROR conda.cli.main_run:execute(125): `conda run python /tmp/versicode_run_nhjnxm63/sample.py` failed. (See above for error)\n",
+        "exit_code": 1,
+        "timeout": false,
+        "temp_entrypoint": "sample.py",
+        "successful_env": null,
+        "attempts": [
+          {
+            "env_name": "versicode_py37_spacy2",
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n  File \"/tmp/versicode_run_nhjnxm63/sample.py\", line 1, in <module>\n    import tensorflow as tf\nModuleNotFoundError: No module named 'tensorflow'\n\nERROR conda.cli.main_run:execute(125): `conda run python /tmp/versicode_run_nhjnxm63/sample.py` failed. (See above for error)\n",
+            "exit_code": 1,
+            "timeout": false
+          },
+          {
+            "env_name": "versicode_py311_modern",
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n  File \"/tmp/versicode_run_nhjnxm63/sample.py\", line 1, in <module>\n    import tensorflow as tf\nModuleNotFoundError: No module named 'tensorflow'\n\nERROR conda.cli.main_run:execute(125): `conda run python /tmp/versicode_run_nhjnxm63/sample.py` failed. (See above for error)\n",
+            "exit_code": 1,
+            "timeout": false
+          },
+          {
+            "env_name": "versicode_py39_mid",
+            "stdout": "SparseTensor(indices=tf.Tensor(\n[[0]\n [0]], shape=(2, 1), dtype=int64), values=tf.Tensor([-inf -inf], shape=(2,), dtype=float32), dense_shape=tf.Tensor([76], shape=(1,), dtype=int64))\n\n",
+            "stderr": "2026-04-08 00:40:53.173664: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2026-04-08 00:40:53.261694: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.\n2026-04-08 00:40:53.266375: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory\n2026-04-08 00:40:53.266387: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.\n2026-04-08 00:40:53.285331: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n2026-04-08 00:40:53.734154: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory\n2026-04-08 00:40:53.734242: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory\n2026-04-08 00:40:53.734249: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.\n2026-04-08 00:40:54.826194: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.826308: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcublas.so.11'; dlerror: libcublas.so.11: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.826391: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcublasLt.so.11'; dlerror: libcublasLt.so.11: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.826471: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcufft.so.10'; dlerror: libcufft.so.10: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.999060: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcusparse.so.11'; dlerror: libcusparse.so.11: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.999174: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudnn.so.8'; dlerror: libcudnn.so.8: cannot open shared object file: No such file or directory\n2026-04-08 00:40:54.999186: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1934] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.\nSkipping registering GPU devices...\n2026-04-08 00:40:55.000338: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2026-04-08 00:40:55.033679: W tensorflow/core/framework/op_kernel.cc:1780] OP_REQUIRES failed at sparse_to_dense_op.cc:162 : INVALID_ARGUMENT: indices[1] = [0] is repeated\nTraceback (most recent call last):\n  File \"/tmp/versicode_run_nhjnxm63/sample.py\", line 14, in <module>\n    prediction_mask = tf.sparse.to_dense(sparse_mask)\n  File \"/home/nicoleoo/miniconda3/envs/versicode_py39_mid/lib/python3.9/site-packages/tensorflow/python/ops/sparse_ops.py\", line 1711, in sparse_tensor_to_dense\n    return gen_sparse_ops.sparse_to_dense(\n  File \"/home/nicoleoo/miniconda3/envs/versicode_py39_mid/lib/python3.9/site-packages/tensorflow/python/ops/gen_sparse_ops.py\", line 3162, in sparse_to_dense\n    _ops.raise_from_not_ok_status(e, name)\n  File \"/home/nicoleoo/miniconda3/envs/versicode_py39_mid/lib/python3.9/site-packages/tensorflow/python/framework/ops.py\", line 7209, in raise_from_not_ok_status\n    raise core._status_to_exception(e) from None  # pylint: disable=protected-access\ntensorflow.python.framework.errors_impl.InvalidArgumentError: {{function_node __wrapped__SparseToDense_device_/job:localhost/replica:0/task:0/device:CPU:0}} indices[1] = [0] is repeated [Op:SparseToDense]\n\nERROR conda.cli.main_run:execute(125): `conda run python /tmp/versicode_run_nhjnxm63/sample.py` failed. (See above for error)\n",
+            "exit_code": 1,
+            "timeout": false
+          },
+          {
+            "env_name": "versicode_py37_legacy",
+            "stdout": "",
+            "stderr": "Traceback (most recent call last):\n  File \"/tmp/versicode_run_nhjnxm63/sample.py\", line 8, in <module>\n    values=[-float('inf')] * len(skip_ids),\n  File \"/home/nicoleoo/miniconda3/envs/versicode_py37_legacy/lib/python3.7/site-packages/tensorflow_core/python/framework/ops.py\", line 741, in __len__\n    \"shape information.\".format(self.name))\nTypeError: len is not well defined for symbolic Tensors. (Const:0) Please call `x.shape` rather than `len(x)` for shape information.\n\nERROR conda.cli.main_run:execute(125): `conda run python /tmp/versicode_run_nhjnxm63/sample.py` failed. (See above for error)\n",
+            "exit_code": 1,
+            "timeout": false
+          }
+        ]
+      }
+    },
+    {
+      "dependency": "tensorflow",
+      "version": "==2.1.0",
+      "time": "2021-08-26",
+      "description": "The code creates a sparse mask for a given set of unique indices by putting -inf at each index and then converts the sparse mask into a dense prediction mask.",
+      "code": "import tensorflow as tf\n\nskip_ids = tf.constant([[0], [0]], dtype=tf.int64)\n\n# get unique indices\ntmp1 = tf.reshape(skip_ids, shape=(-1,))\nuniques, idx, counts = tf.unique_with_counts(tmp1)\nuniques_ids = tf.expand_dims(uniques, axis=1)\n\n\nsparse_mask = tf.SparseTensor(\n    # Put a -inf at each bad index.\n    values=[-float('inf')] * len(uniques_ids),\n    indices=uniques_ids,\n    # Match the shape to the vocabulary\n    dense_shape=[76])\nprint(sparse_mask)\n\nprediction_mask = tf.sparse.to_dense(sparse_mask)\n\nprint(prediction_mask)",
+      "masked_code": "import tensorflow as tf\n\nskip_ids = tf.constant([[0], [0]], dtype=tf.int64)\n\n# get unique indices\ntmp1 = tf.reshape(skip_ids, shape=(-1,))\nuniques, idx, counts = tf.unique_with_counts(tmp1)\n<line_mask>\n\n\nsparse_mask = tf.SparseTensor(\n    # Put a -inf at each bad index.\n    values=[-float('inf')] * len(uniques_ids),\n    indices=uniques_ids,\n    # Match the shape to the vocabulary\n    dense_shape=[76])\nprint(sparse_mask)\n\nprediction_mask = tf.sparse.to_dense(sparse_mask)\n\nprint(prediction_mask)",
+      "masked_line": "uniques_ids = tf.expand_dims(uniques, axis=1)",
+      "answer": "expand_dims",
+      "granularity": "block",
+      "language": "python",
+      "task": "code_completion",
+      "source": "stackoverflow",
+      "id": "stackoverflow_block_2",
+      "run_result": {
+        "status": "ok",
+        "stdout": "SparseTensor(indices=tf.Tensor([[0]], shape=(1, 1), dtype=int64), values=tf.Tensor([-inf], shape=(1,), dtype=float32), dense_shape=tf.Tensor([76], shape=(1,), dtype=int64))\ntf.Tensor(\n[-inf   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.\n   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.\n   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.\n   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.\n   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.\n   0.   0.   0.   0.   0.   0.], shape=(76,), dtype=float32)\n\n",
+        "stderr": "2026-04-08 00:41:02.196220: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is o
