@@ -5,6 +5,9 @@ This repository contains the VersiCode-Exe dataset. We build upon the VersiCode 
 ## Resources
 Please clone the Repository via `git clone https://github.com/orangeguppy/VersiCode-Exe` to download our code and dataset before proceeding with the next steps below.
 
+## Usage: Setting up VersiCode-Exe Conda environments
+Before running the code, we need to setup the four defined environment configurations. Do this by launching our Conda environment setup script with ```python util/create_conda_envs_from_json.py```
+
 ## Usage: VersiCode-Exe Dataset Files
 As our work extends the VersiCode dataset, we retain all fields in the original VersiCode dataset. Our dataset files can be found in the ```data/VersiCode_Exe``` folder. We add our own field to each data row with the following schema:
 
