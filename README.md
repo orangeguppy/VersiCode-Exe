@@ -6,7 +6,7 @@ This repository contains the VersiCode-Exe dataset. We build upon the VersiCode 
 Please clone the Repository via `git clone https://github.com/orangeguppy/VersiCode-Exe` to download our code and dataset before proceeding with the next steps below.
 
 ## Usage: VersiCode-Exe Dataset Files
-As our work extends the VersiCode dataset, we retain all fields in the original VersiCode dataset. Our dataset files can be found in the ```VersiCode_Exe``` folder. We add our own field to each data row with the following schema:
+As our work extends the VersiCode dataset, we retain all fields in the original VersiCode dataset. Our dataset files can be found in the ```data/VersiCode_Exe``` folder. We add our own field to each data row with the following schema:
 
 ```
 "run_result": {
